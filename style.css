@@ -1,0 +1,300 @@
+.new-text-bg {
+  color: #eeedeb;
+  background-color: #151515;
+}
+
+.new-nav-bg {
+  background-color: #171717e1;
+}
+
+.new-bg {
+  background-color: #c8acd7;
+}
+
+.svg-icon {
+  transition: filter 0.3s ease;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 125%;
+}
+
+.glow {
+  animation: glow 1s ease-in-out infinite alternate;
+  text-shadow: 0 0 10px #fff, 0 0 20px #c8acd6;
+}
+
+.glow-sm {
+  animation: glow 1s ease-in-out infinite alternate;
+  text-shadow: 0 0 5px #fff, 0 0 10px #c8acd6;
+}
+
+.akaya-kanadaka-regular {
+  font-family: "Akaya Kanadaka", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/*/////////About Card styles /////////*/
+#about .status-card {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#about .status-card-body {
+  padding: 20px;
+}
+
+#about .about-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+#about .about-text {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+#about .about-table {
+  margin-top: 40px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#about .about-table,
+#about .about-table th,
+#about .about-table td {
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#about .about-table th,
+#about .about-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+/*/////// Project Card Styles ////////*/
+#project .card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+#project .portfolio-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#project .portfolio-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.721);
+}
+
+/* Big card at the center */
+#project .big-card {
+  grid-column: 2 / span 2;
+  grid-row: 2 / span 2;
+}
+
+/* Medium cards at the edges */
+#project .medium-card-1 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+}
+
+#project .medium-card-2 {
+  grid-column: 4 / span 1;
+  grid-row: 1 / span 2;
+}
+
+#project .medium-card-3 {
+  grid-column: 1 / span 1;
+  grid-row: 3 / span 2;
+}
+
+#project .medium-card-4 {
+  grid-column: 4 / span 1;
+  grid-row: 3 / span 2;
+}
+
+/* Small cards filling remaining spaces */
+#project .small-card-3 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
+
+#project .small-card-4 {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 1;
+}
+
+#project .small-card-5 {
+  grid-column: 2 / span 1;
+  grid-row: 4 / span 1;
+}
+
+#project .small-card-6 {
+  grid-column: 3 / span 1;
+  grid-row: 4 / span 1;
+}
+
+@media screen and (max-width: 995px) {
+  #project .card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+  }
+
+  /* Big card at the top */
+  #project .big-card {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
+
+  /* First row of medium cards */
+  #project .medium-card-1,
+  #project .medium-card-2 {
+    grid-column: span 1;
+    grid-row: 2;
+  }
+
+  /* Second row of medium cards */
+  #project .medium-card-3,
+  #project .medium-card-4 {
+    grid-column: span 1;
+    grid-row: 3;
+  }
+
+  /* First row of small cards */
+  #project .small-card-5,
+  #project .small-card-6 {
+    grid-column: span 1;
+    grid-row: 4;
+  }
+
+  /* Second row of small cards */
+  #project .small-card-3,
+  #project .small-card-4 {
+    grid-column: span 1;
+    grid-row: 5;
+  }
+}
+
+/* Container that holds the carousel cards */
+.carousel-inner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+/* Card settings for elliptical effect */
+.carousel-card {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+  opacity: 0.5;
+  transform-origin: center;
+}
+
+/* Active card styling */
+.carousel-card.active {
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.776);
+  transform: translateY(0) scale(1.1);
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Previous and next card styling */
+.carousel-card.prev,
+.carousel-card.next {
+  transform: translateY(30px) scale(0.9);
+  z-index: 1;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.carousel-control-prev {
+  left: -30px;
+}
+
+.carousel-control-next {
+  right: -30px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 50px;
+  height: 50px;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Remove underline for all link states within the card body */
+.anker-body {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Adjust the color on  */
+.carousel-card .card-body a:hover {
+  color: #ccc;
+}
+/* Adjust cards for large devices */
+@media (min-width: 992px) {
+  .carousel-card.next {
+    transform: translate(110%, 30px) scale(0.9);
+  }
+
+  .carousel-card.prev {
+    transform: translate(-110%, 30px) scale(0.9);
+  }
+
+  .rounded-pill-lg {
+    border-radius: 50rem;
+  }
+}
+
+/* Remove underline and set color for links */
+.carousel-card .card-body a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Small devices (max-width: 991.98px) */
+@media (max-width: 991.98px) {
+  .carousel-card {
+    opacity: 0;
+  }
+
+  .carousel-card.prev,
+  .carousel-card.next {
+    transform: translateY(30px) scale(0.9);
+    z-index: 1;
+  }
+}
