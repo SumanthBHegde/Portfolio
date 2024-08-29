@@ -19,13 +19,13 @@
       href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&family=Caveat:wght@400..700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="temp.css" />
   </head>
 
   <body cz-shortcut-listen="true" class="new-text-bg">
-    <header class="sticky-top rounded-bottom rounded-pill-lg">
+    <header class="sticky-top">
       <nav
-        class="navbar navbar-expand-lg navbar-dark new-nav-bg px-4 py-1"
+        class="navbar navbar-expand-lg navbar-dark rounded-pill-lg new-nav-bg px-4 py-1"
         style="z-index: 1050"
       >
         <div class="container-fluid">
@@ -46,7 +46,10 @@
           >
             <ul class="navbar-nav text-center">
               <li class="nav-item">
-                <a href="#home" class="nav-link text-secondary active px-4">
+                <a
+                  href="#home"
+                  class="nav-link text-secondary active px-lg-4 px-md-3 px-2"
+                >
                   <img
                     src="./assets/home.svg"
                     class="bi d-block mx-auto mb-1 svg-icon opacity-25"
@@ -58,7 +61,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#about" class="nav-link text-secondary px-4">
+                <a
+                  href="#about"
+                  class="nav-link text-secondary px-lg-4 px-md-3 px-2"
+                >
                   <img
                     src="./assets/about.svg"
                     class="bi d-block mx-auto mb-1 svg-icon opacity-25"
@@ -70,7 +76,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#project" class="nav-link text-secondary px-4">
+                <a
+                  href="#project"
+                  class="nav-link text-secondary px-lg-4 px-md-3 px-2"
+                >
                   <img
                     src="./assets/project.svg"
                     class="bi d-block mx-auto mb-1 svg-icon opacity-25"
@@ -82,7 +91,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#blog" class="nav-link text-secondary px-4">
+                <a
+                  href="#blog"
+                  class="nav-link text-secondary px-lg-4 px-md-3 px-2"
+                >
                   <img
                     src="./assets/blog.svg"
                     class="bi d-block mx-auto mb-1 svg-icon opacity-25"
@@ -94,7 +106,10 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#social" class="nav-link text-secondary px-4">
+                <a
+                  href="#social"
+                  class="nav-link text-secondary px-lg-4 px-md-3 px-2"
+                >
                   <img
                     src="./assets/social.svg"
                     class="bi d-block mx-auto mb-1 svg-icon opacity-25"
@@ -116,7 +131,7 @@
       <!-- home -->
       <section
         id="home"
-        class="section min-vh-100 position-relative w-100 h-100 d-flex align-items-center justify-content-center pb-3"
+        class="section min-vh-100 d-flex align-items-center justify-content-center pb-3"
       >
         <video class="video-background" autoplay muted loop playsinline>
           <source src="./assets/videoBG.mp4" type="video/mp4" />
@@ -127,31 +142,26 @@
           style="opacity: 0.5"
         ></div>
         <div class="container position-relative">
-          <div class="row align-items-center">
-            <div
-              class="col-12 col-md-6 d-flex justify-content-center mb-3 mb-md-0 mt-0 mt-md-3"
-              style="margin-top: 0 !important"
-            >
-              <div class="overflow-hidden rounded">
+          <div class="row flex-column align-items-center">
+            <div class="col-12 justify-content-center mb-3 mt-4 rm-col">
+              <div class="overflow-hidden rounded hero-image">
                 <img
                   src="./assets/Profile_pic (2).png"
-                  class="img-fluid h-100"
+                  class="d-block img-fluid"
                   alt="Profile Image"
                   style="object-fit: cover; margin-top: 0 !important"
                 />
               </div>
             </div>
-            <div class="col-12 col-md-6 text-center text-white glow">
-              <br />
-              <h1 class="display-1 akaya-kanadaka-regular">
+            <div class="col-12 text-white glow hero-text text-center rm-col">
+              <h1 class="display-4 akaya-kanadaka-regular">
                 <b>ನಮ: ಸರ್ವೇಭ್ಯ:</b>
               </h1>
-              <br />
               <p class="display-7">
                 "Learning gives creativity, creativity leads to thinking,
-                thinking provides knowledge, and knowledge makes you great." -Dr
-                APJ Abdul Kalam
+                thinking provides knowledge, and knowledge makes you great."
               </p>
+              <p class="display-7">-Dr APJ Abdul Kalam</p>
             </div>
           </div>
         </div>
@@ -170,7 +180,7 @@
                 <div class="col-12 col-lg col-md-12">
                   <div class="text-wrapper align-items-center">
                     <h2
-                      class="about-title mbr-fonts-style mb-4 display-2 note-air-editor note-editable"
+                      class="about-title mbr-fonts-style mb-4 display-2 note-air-editor note-editable glow-sm"
                     >
                       <b>About Me</b>
                     </h2>
@@ -231,7 +241,7 @@
       <!-- my projects -->
       <section id="project" class="section min-vh-100 pt-2 pt-lg-5">
         <div class="d-block justify-content-center align-items-center pt-4">
-          <h3 class="text-center display-3 glow">Featured projects</h3>
+          <h3 class="text-center display-3 glow-sm">Featured projects</h3>
         </div>
         <div class="container card-container">
           <!-- Big card at the center -->
@@ -366,77 +376,91 @@
       </section>
 
       <!-- My blog -->
-      <section id="blog" class="section min-vh-100 pt-2 pt-lg-5">
-        <div class="d-block justify-content-center align-items-center pt-4">
-          <h3 class="text-center display-3 glow">Latest Blogs</h3>
-        </div>
-        <div
-          class="container d-flex justify-content-center align-items-center position-relative"
-          style="height: 600px"
-        >
+      <section id="blog" class="section min-vh-100 pt-2 py-lg-5">
+        <div class="align-items-center">
+          <div class="d-block justify-content-center align-items-center pt-4">
+            <h3 class="text-center display-3 glow-sm">Latest Blogs</h3>
+          </div>
           <div
-            class="carousel-inner-container w-100 position-relative"
-            style="max-width: 800px"
+            class="container d-flex justify-content-center align-items-center position-relative"
+            style="height: 600px"
           >
-            <button
-              class="carousel-control carousel-control-prev border-0 py-2 px-3"
-              id="prevBtn"
+            <div
+              class="carousel-inner-container w-100 position-relative"
+              style="max-width: 800px"
             >
-              <span class="carousel-control-prev-icon"></span>
-            </button>
+              <button
+                class="carousel-control carousel-control-prev border-0 py-2 px-3"
+                id="prevBtn"
+              >
+                <span class="carousel-control-prev-icon"></span>
+              </button>
 
-            <div class="carousel-card active rounded-2" id="card1">
-              <div class="card h-100">
-                <a href="#" class="anker-body">
-                  <img
-                    src="https://picsum.photos/300/400"
-                    class="card-img-top rounded-2"
-                    alt="Blog 1"
-                  />
-                  <div class="card-body text-center text-white rounded-bottom">
-                    <h5 class="card-title">Blog Post 1</h5>
-                    <p class="card-text">A brief description of Blog Post 1.</p>
-                  </div>
-                </a>
+              <div class="carousel-card active rounded-2" id="card1">
+                <div class="card h-100">
+                  <a href="#" class="anker-body">
+                    <img
+                      src="https://picsum.photos/300/400"
+                      class="card-img-top rounded-2"
+                      alt="Blog 1"
+                    />
+                    <div
+                      class="card-body text-center text-white rounded-bottom"
+                    >
+                      <h5 class="card-title">Blog Post 1</h5>
+                      <p class="card-text">
+                        A brief description of Blog Post 1.
+                      </p>
+                    </div>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div class="carousel-card next rounded-2" id="card2">
-              <div class="card h-100">
-                <a href="#" class="anker-body">
-                  <img
-                    src="https://picsum.photos/300/400"
-                    class="card-img-top rounded-2"
-                    alt="Blog 2"
-                  />
-                  <div class="card-body text-center text-white rounded-bottom">
-                    <h5 class="card-title">Blog Post 2</h5>
-                    <p class="card-text">A brief description of Blog Post 2.</p>
-                  </div>
-                </a>
+              <div class="carousel-card next rounded-2" id="card2">
+                <div class="card h-100">
+                  <a href="#" class="anker-body">
+                    <img
+                      src="https://picsum.photos/300/400"
+                      class="card-img-top rounded-2"
+                      alt="Blog 2"
+                    />
+                    <div
+                      class="card-body text-center text-white rounded-bottom"
+                    >
+                      <h5 class="card-title">Blog Post 2</h5>
+                      <p class="card-text">
+                        A brief description of Blog Post 2.
+                      </p>
+                    </div>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div class="carousel-card prev rounded-2" id="card3">
-              <div class="card h-100">
-                <a href="#" class="anker-body">
-                  <img
-                    src="https://picsum.photos/300/400"
-                    class="card-img-top rounded-2"
-                    alt="Blog 3"
-                  />
-                  <div class="card-body text-center text-white rounded-bottom">
-                    <h5 class="card-title">Blog Post 3</h5>
-                    <p class="card-text">A brief description of Blog Post 3.</p>
-                  </div>
-                </a>
+              <div class="carousel-card prev rounded-2" id="card3">
+                <div class="card h-100">
+                  <a href="#" class="anker-body">
+                    <img
+                      src="https://picsum.photos/300/400"
+                      class="card-img-top rounded-2"
+                      alt="Blog 3"
+                    />
+                    <div
+                      class="card-body text-center text-white rounded-bottom"
+                    >
+                      <h5 class="card-title">Blog Post 3</h5>
+                      <p class="card-text">
+                        A brief description of Blog Post 3.
+                      </p>
+                    </div>
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <button
-              class="carousel-control carousel-control-next border-0 py-2 px-3"
-              id="nextBtn"
-            >
-              <span class="carousel-control-next-icon"></span>
-            </button>
+              <button
+                class="carousel-control carousel-control-next border-0 py-2 px-3"
+                id="nextBtn"
+              >
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -444,13 +468,13 @@
       <!-- Contacts -->
       <section
         id="social"
-        class="section min-vh-100 pt-5 d-flex align-items-center"
+        class="section min-vh-100 pt-5 d-block align-items-center"
       >
         <div class="container">
           <div class="row">
             <!--  Textual content -->
             <div
-              class="col-12 col-md-6 d-flex flex-column justify-content-center mb-4 mb-md-0 text-center"
+              class="col-12 d-flex flex-column justify-content-center mb-4 mb-md-0 text-center"
             >
               <h2 class="mb-4 glow-sm display-3 pb-3">Why Choose Me?</h2>
               <p class="lead">
@@ -471,7 +495,7 @@
 
             <!-- Social links -->
             <div
-              class="col-12 col-md-6 d-flex flex-column justify-content-right align-items-center"
+              class="col-12 d-flex flex-column justify-content-right align-items-center"
             >
               <h3 class="mb-4 mx-md-5 glow-sm display-4">Connect with Me</h3>
               <ul class="list-unstyled m-md-5">
