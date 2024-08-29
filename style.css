@@ -1,3 +1,4 @@
+/* General Styles for Small Devices (Mobile-First) */
 .new-text-bg {
   color: #eeedeb;
   background-color: #151515;
@@ -12,6 +13,8 @@
 }
 
 .svg-icon {
+  width: 60px;
+  height: 60px;
   transition: filter 0.3s ease;
 }
 
@@ -42,31 +45,31 @@
   font-style: normal;
 }
 
-/*/////////About Card styles /////////*/
+/*///////// General About Card styles for all devices /////////*/
 #about .status-card {
   background-color: rgba(0, 0, 0, 0.5);
   border: 2px solid white;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  padding: 20px;
+  padding: 25px;
 }
 
 #about .status-card-body {
-  padding: 20px;
+  padding: 25px;
 }
 
 #about .about-title {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: 4em;
+  margin-bottom: 25px;
 }
 
 #about .about-text {
-  font-size: 1.2em;
-  margin-bottom: 20px;
+  font-size: 1.8em;
+  margin-bottom: 25px;
 }
 
 #about .about-table {
-  margin-top: 40px;
+  margin-top: 50px;
   width: 100%;
   border-collapse: collapse;
 }
@@ -80,15 +83,16 @@
 
 #about .about-table th,
 #about .about-table td {
-  padding: 10px;
+  padding: 15px;
   text-align: left;
 }
 
 /*/////// Project Card Styles ////////*/
 #project .card-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
   padding: 2rem;
 }
 
@@ -101,95 +105,38 @@
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.721);
 }
 
-/* Big card at the center */
+/* Big card at the top */
 #project .big-card {
-  grid-column: 2 / span 2;
-  grid-row: 2 / span 2;
+  grid-column: 1 / span 2;
+  grid-row: 1;
 }
 
-/* Medium cards at the edges */
-#project .medium-card-1 {
-  grid-column: 1 / span 1;
-  grid-row: 1 / span 2;
-}
-
+/* First row of medium cards */
+#project .medium-card-1,
 #project .medium-card-2 {
-  grid-column: 4 / span 1;
-  grid-row: 1 / span 2;
+  grid-column: span 1;
+  grid-row: 2;
 }
 
-#project .medium-card-3 {
-  grid-column: 1 / span 1;
-  grid-row: 3 / span 2;
-}
-
+/* Second row of medium cards */
+#project .medium-card-3,
 #project .medium-card-4 {
-  grid-column: 4 / span 1;
-  grid-row: 3 / span 2;
+  grid-column: span 1;
+  grid-row: 3;
 }
 
-/* Small cards filling remaining spaces */
-#project .small-card-3 {
-  grid-column: 2 / span 1;
-  grid-row: 1 / span 1;
-}
-
-#project .small-card-4 {
-  grid-column: 3 / span 1;
-  grid-row: 1 / span 1;
-}
-
-#project .small-card-5 {
-  grid-column: 2 / span 1;
-  grid-row: 4 / span 1;
-}
-
+/* First row of small cards */
+#project .small-card-5,
 #project .small-card-6 {
-  grid-column: 3 / span 1;
-  grid-row: 4 / span 1;
+  grid-column: span 1;
+  grid-row: 4;
 }
 
-@media screen and (max-width: 995px) {
-  #project .card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    gap: 20px;
-  }
-
-  /* Big card at the top */
-  #project .big-card {
-    grid-column: 1 / span 2;
-    grid-row: 1;
-  }
-
-  /* First row of medium cards */
-  #project .medium-card-1,
-  #project .medium-card-2 {
-    grid-column: span 1;
-    grid-row: 2;
-  }
-
-  /* Second row of medium cards */
-  #project .medium-card-3,
-  #project .medium-card-4 {
-    grid-column: span 1;
-    grid-row: 3;
-  }
-
-  /* First row of small cards */
-  #project .small-card-5,
-  #project .small-card-6 {
-    grid-column: span 1;
-    grid-row: 4;
-  }
-
-  /* Second row of small cards */
-  #project .small-card-3,
-  #project .small-card-4 {
-    grid-column: span 1;
-    grid-row: 5;
-  }
+/* Second row of small cards */
+#project .small-card-3,
+#project .small-card-4 {
+  grid-column: span 1;
+  grid-row: 5;
 }
 
 /* Container that holds the carousel cards */
@@ -207,7 +154,7 @@
   width: 300px;
   height: 400px;
   transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
-  opacity: 0.5;
+  opacity: 0;
   transform-origin: center;
 }
 
@@ -261,12 +208,166 @@
   color: inherit !important;
 }
 
-/* Adjust the color on  */
+/* Adjust the color on hover */
 .carousel-card .card-body a:hover {
   color: #ccc;
 }
-/* Adjust cards for large devices */
+
+/* Small to Medium Devices (max-width: 991.98px) */
+.navbar {
+  padding: 3rem 3rem;
+}
+
+.navbar-toggler {
+  font-size: 3rem !important;
+}
+
+.nav-link.fs-responsive {
+  font-size: 2.3rem;
+}
+
+.rounded-pill-lg {
+  border-bottom-left-radius: 25rem;
+  border-bottom-right-radius: 25rem;
+}
+
+#home {
+  height: 70vh !important;
+}
+
+#home .rm-col {
+  flex: none !important;
+  width: auto !important;
+  margin-top: 4rem;
+}
+
+#home .hero-image {
+  height: 40vh;
+  width: 40vh;
+}
+
+#home .hero-text {
+  height: 30vh;
+}
+
+#home .hero-text > h1 {
+  font-size: 4rem;
+}
+
+#home .hero-text > p {
+  font-size: 2rem;
+}
+
+.row {
+  flex-direction: column;
+}
+
+/* Tablet Devices (min-width: 768px) and (max-width: 991.98px) */
+/* @media (min-width: 768px) and (max-width: 991.98px) {
+  .navbar {
+    padding: 1.5rem 2rem !important;
+  }
+
+  .navbar-toggler {
+    font-size: 2rem !important;
+  }
+
+  .nav-link.fs-responsive {
+    font-size: 1.8rem !important;
+  }
+
+  row direction and spacing for large devices 
+  .row {
+    flex-direction: row !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .hero-image {
+    height: 60vh !important;
+    width: 60vh !important;
+  }
+
+  .hero-text {
+    height: 30vh;
+  }
+
+  .hero-text > h1 {
+    font-size: 3rem !important;
+    padding-bottom: 2rem;
+  }
+
+  .hero-text > p {
+    font-size: 1rem !important;
+  }
+} 
+*/
+
+/* //section height
+.custom-min-height {
+  min-height: 70vh;
+} */
+
+/* Large Devices (min-width: 992px) */
 @media (min-width: 992px) {
+  #project .card-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Big card at the center */
+  #project .big-card {
+    grid-column: 2 / span 2;
+    grid-row: 2 / span 2;
+  }
+
+  /* Medium cards at the edges */
+  #project .medium-card-1 {
+    grid-column: 1 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  #project .medium-card-2 {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 2;
+  }
+
+  #project .medium-card-3 {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 2;
+  }
+
+  #project .medium-card-4 {
+    grid-column: 4 / span 1;
+    grid-row: 3 / span 2;
+  }
+
+  /* Small cards filling remaining spaces */
+  #project .small-card-3 {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  #project .small-card-4 {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+  }
+
+  #project .small-card-5 {
+    grid-column: 2 / span 1;
+    grid-row: 4 / span 1;
+  }
+
+  #project .small-card-6 {
+    grid-column: 3 / span 1;
+    grid-row: 4 / span 1;
+  }
+
+  /* /////////blog carousel-card//////// */
+  .carousel-card {
+    opacity: 0.5;
+  }
+
   .carousel-card.next {
     transform: translate(110%, 30px) scale(0.9);
   }
@@ -275,26 +376,84 @@
     transform: translate(-110%, 30px) scale(0.9);
   }
 
+  /* //////hero section/////// */
+  #home .rm-col {
+    flex: 0 0 50% !important;
+    max-width: 50%;
+  }
+
+  /*row direction and spacing for large devices */
+  .row {
+    flex-direction: row !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .hero-image {
+    height: 70vh !important;
+    width: 70vh !important;
+  }
+
+  .hero-text {
+    height: 30vh;
+  }
+
+  .hero-text > h1 {
+    font-size: 4rem !important;
+    padding-bottom: 2rem;
+  }
+
+  .hero-text > p {
+    font-size: 1.3rem !important;
+  }
+
+  /* //////////Navbar///////// */
+  .navbar {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  /* SVG icon size adjustments for large devices */
+  .svg-icon {
+    width: 30px;
+    height: 30px;
+  }
+
   .rounded-pill-lg {
     border-radius: 50rem;
   }
-}
 
-/* Remove underline and set color for links */
-.carousel-card .card-body a {
-  color: inherit;
-  text-decoration: none;
-}
+  /*///////// About Card styles for large devices (min-width: 991.98px) /////////*/
 
-/* Small devices (max-width: 991.98px) */
-@media (max-width: 991.98px) {
-  .carousel-card {
-    opacity: 0;
+  #about .status-card {
+    padding: 20px;
   }
 
-  .carousel-card.prev,
-  .carousel-card.next {
-    transform: translateY(30px) scale(0.9);
-    z-index: 1;
+  #about .status-card-body {
+    padding: 20px;
   }
+
+  #about .about-title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+  }
+
+  #about .about-text {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+
+  #about .about-table {
+    margin-top: 40px;
+  }
+
+  #about .about-table th,
+  #about .about-table td {
+    padding: 10px;
+  }
+
+  /* //section height
+  .custom-min-height {
+    min-height: 100vh !important;
+  } */
 }
