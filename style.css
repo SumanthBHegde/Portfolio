@@ -238,75 +238,185 @@
 #home .rm-col {
   flex: none !important;
   width: auto !important;
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 
 #home .hero-image {
   height: 40vh;
   width: 40vh;
+  padding-bottom: 2rem;
 }
 
 #home .hero-text {
-  height: 30vh;
+  padding-top: 2rem;
+  height: 40vh;
 }
 
 #home .hero-text > h1 {
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 #home .hero-text > p {
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
-.row {
+#home .row {
   flex-direction: column;
 }
 
-/* Tablet Devices (min-width: 768px) and (max-width: 991.98px) */
-/* @media (min-width: 768px) and (max-width: 991.98px) {
-  .navbar {
-    padding: 1.5rem 2rem !important;
+/* medium devices */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #about .container,
+  #project .card-container,
+  #social .container {
+    max-width: 820px;
   }
 
-  .navbar-toggler {
-    font-size: 2rem !important;
+  #about .about-title,
+  #project .title,
+  #blog .title {
+    font-size: 6rem;
+    text-align: center;
   }
 
-  .nav-link.fs-responsive {
-    font-size: 1.8rem !important;
+  #about .about-text {
+    font-size: 2.1rem;
   }
 
-  row direction and spacing for large devices 
-  .row {
-    flex-direction: row !important;
-    padding-left: 0px !important;
-    padding-right: 0px !important;
+  #about .about-table {
+    font-size: 1.8rem;
   }
 
-  .hero-image {
-    height: 60vh !important;
-    width: 60vh !important;
+  #about .col-4 {
+    text-align: center !important;
   }
 
-  .hero-text {
-    height: 30vh;
-  }
-
-  .hero-text > h1 {
-    font-size: 3rem !important;
+  #project .title {
+    padding-top: 3rem;
     padding-bottom: 2rem;
   }
 
-  .hero-text > p {
-    font-size: 1rem !important;
-  }
-} 
-*/
+  /* Blog cards */
 
-/* //section height
-.custom-min-height {
-  min-height: 70vh;
-} */
+  #blog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .carousel-inner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    height: 800px;
+  }
+
+  .carousel-card {
+    width: 400px;
+    height: 530px;
+  }
+
+  .carousel-card.active {
+    transform: translateY(0) scale(1.3);
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.776);
+  }
+
+  .carousel-card.prev,
+  .carousel-card.next {
+    transform: translateY(30px) scale(1.1);
+    box-shadow: none;
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .carousel-control-prev {
+    left: -40px;
+  }
+
+  .carousel-control-next {
+    right: -40px;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 100px;
+    height: 100px;
+  }
+
+  #blog .title {
+    margin-bottom: 8rem;
+    padding-bottom: 10rem;
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  #blog .card-body {
+    margin: 2.5rem;
+  }
+
+  #blog .card-title {
+    font-size: 3rem;
+    padding-bottom: 1rem;
+  }
+
+  #blog .card-text {
+    font-size: 1.5rem;
+  }
+
+  /* Social section */
+  #social .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  #social .text-section {
+    margin-bottom: 5rem !important;
+    padding-bottom: 5rem;
+  }
+
+  /* Increase text size */
+  #social h2 {
+    font-size: 6rem;
+    padding-bottom: 2rem !important;
+  }
+
+  #social h3 {
+    font-size: 5rem;
+  }
+
+  #social p.lead {
+    font-size: 2.3rem;
+  }
+
+  /* Increase icon size */
+  #social img {
+    width: 60px;
+    height: auto;
+  }
+
+  #social .gmail,
+  #social .github {
+    width: 72px !important;
+  }
+
+  .footer {
+    font-size: 1.5rem;
+    padding: 1.5rem;
+  }
+}
 
 /* Large Devices (min-width: 992px) */
 @media (min-width: 992px) {
@@ -380,6 +490,7 @@
   #home .rm-col {
     flex: 0 0 50% !important;
     max-width: 50%;
+    margin-top: 0;
   }
 
   /*row direction and spacing for large devices */
@@ -451,9 +562,4 @@
   #about .about-table td {
     padding: 10px;
   }
-
-  /* //section height
-  .custom-min-height {
-    min-height: 100vh !important;
-  } */
 }
