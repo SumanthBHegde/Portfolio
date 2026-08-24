@@ -1,0 +1,138 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  index: number;
+}
+const { entry, index } = Astro.props;
+const { title, tagline, stack, year, accent, cover } = entry.data;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<a
+  class="card glass tilt"
+  href={`${import.meta.env.BASE_URL}work/${entry.id}`}
+  style={accent ? `--card-accent:${accent}` : ''}
+  data-tilt
+  data-reveal
+>
+  <div class="card__inner">
+    {
+      cover && (
+        <Image
+          src={cover}
+          alt={`${title} screenshot`}
+          widths={[320, 480]}
+          sizes="(max-width: 60rem) 90vw, 24rem"
+          formats={['avif', 'webp']}
+          loading="lazy"
+          class="card__cover"
+        />
+      )
+    }
+    <div class="card__motif" aria-hidden="true">
+      <span class="card__num mono">{num}</span>
+      <span class="card__year mono">{year}</span>
+    </div>
+    <div class="card__body">
+      <h3 class="card__title">{title}</h3>
+      <p class="card__tagline muted">{tagline}</p>
+      <ul class="card__stack" aria-label="Tech stack">
+        {stack.slice(0, 4).map((s) => <li class="mono">{s}</li>)}
+      </ul>
+    </div>
+    <span class="card__cta mono">
+      Read more
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+        <path
+          d="M5 12h14M13 6l6 6-6 6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </span>
+  </div>
+</a>
+
+<style>
+  .card {
+    --card-accent: var(--accent);
+    display: block;
+    padding: var(--space-md);
+    border-radius: var(--radius);
+    border-color: color-mix(in srgb, var(--card-accent) 42%, var(--line));
+    transform: perspective(820px) rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg))
+      scale(var(--s, 1));
+  }
+  .card:hover {
+    --s: 1.015;
+    border-color: color-mix(in srgb, var(--card-accent) 78%, var(--line));
+  }
+  .card__inner {
+    transform: translateZ(0);
+  }
+  .card__cover {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    margin-bottom: var(--space-md);
+    background: var(--bg-elev);
+  }
+  .card__motif {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+  }
+  .card__num {
+    font-size: var(--step-2);
+    font-weight: 600;
+    color: var(--card-accent);
+  }
+  .card__year {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+  .card__title {
+    font-size: var(--step-2);
+    margin-bottom: 0.35rem;
+  }
+  .card__tagline {
+    font-size: var(--step-0);
+    margin-bottom: var(--space-sm);
+  }
+  .card__stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+  }
+  .card__stack li {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5ch;
+    margin-top: var(--space-md);
+    font-size: var(--step--1);
+    color: var(--card-accent);
+  }
+  .card__cta svg {
+    transition: transform 0.3s var(--ease);
+  }
+  .card:hover .card__cta svg {
+    transform: translateX(4px);
+  }
+</style>

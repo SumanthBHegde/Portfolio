@@ -1,0 +1,174 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import Signal from './Signal.astro';
+
+const nav = [
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Work' },
+  { id: 'contact', label: 'Contact' },
+];
+const socials = [
+  { href: 'https://github.com/SumanthBHegde', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/sumanth-hegde-37805a2b9/', label: 'LinkedIn' },
+  { href: 'mailto:sumanthhegde002@gmail.com', label: 'Email' },
+];
+---
+
+<aside class="sidebar">
+  <div class="sidebar__bg"><Signal /></div>
+
+  <div class="sidebar__top">
+    <a href={import.meta.env.BASE_URL} class="sidebar__name">Sumanth B Hegde</a>
+    <p class="sidebar__role mono">Backend &amp; AI developer</p>
+    <p class="sidebar__bio muted">
+      I'm doing my MCA at RVCE in Bengaluru and I mostly build backends. I like
+      pulling something apart to see how it actually works before I trust it.
+    </p>
+
+    <nav class="sidebar__nav" aria-label="Sections">
+      {
+        nav.map((n) => (
+          <a href={`#${n.id}`} class="sidebar__link" data-navlink={n.id}>
+            <span class="sidebar__line" />
+            <span class="mono">{n.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <div class="sidebar__bottom">
+    <ul class="sidebar__socials">
+      {
+        socials.map((s) => (
+          <li>
+            <a href={s.href} class="link-underline mono" rel="me noopener">
+              {s.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <ThemeToggle />
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--space-2xl) var(--space-xl) var(--space-lg) 0;
+    gap: var(--space-lg);
+  }
+  .sidebar__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .sidebar__top,
+  .sidebar__bottom {
+    position: relative;
+    z-index: 1;
+  }
+  .sidebar__name {
+    display: block;
+    font-size: var(--step-3);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .sidebar__role {
+    margin-top: 0.5rem;
+    font-size: var(--step-0);
+    color: var(--accent);
+  }
+  .sidebar__bio {
+    margin-top: var(--space-md);
+    max-width: 24rem;
+    font-size: var(--step-0);
+  }
+  .sidebar__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: var(--space-xl);
+  }
+  .sidebar__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    width: max-content;
+    color: var(--muted);
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    transition: color 0.25s var(--ease);
+  }
+  .sidebar__line {
+    display: block;
+    width: 28px;
+    height: 1.5px;
+    background: var(--muted);
+    transition: width 0.28s var(--ease), background 0.25s var(--ease);
+  }
+  .sidebar__link:hover,
+  .sidebar__link.is-active {
+    color: var(--primary);
+  }
+  .sidebar__link:hover .sidebar__line,
+  .sidebar__link.is-active .sidebar__line {
+    width: 52px;
+    background: var(--accent);
+  }
+  .sidebar__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+  .sidebar__socials {
+    display: flex;
+    gap: var(--space-md);
+    list-style: none;
+    padding: 0;
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 60rem) {
+    .sidebar {
+      position: static;
+      height: auto;
+      padding: var(--space-xl) 0 var(--space-lg);
+      gap: var(--space-lg);
+    }
+    .sidebar__nav {
+      margin-top: var(--space-lg);
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const links = Array.from(document.querySelectorAll('[data-navlink]'));
+    if (!links.length) return;
+    const byId = new Map(links.map((l) => [l.getAttribute('data-navlink'), l]));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            links.forEach((l) => l.classList.remove('is-active'));
+            const active = byId.get(e.target.id);
+            if (active) active.classList.add('is-active');
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    ['about', 'work', 'contact'].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  })();
+</script>

@@ -1,0 +1,49 @@
+---
+title: Auto Grader
+tagline: Grading handwritten math with vision LLMs, built like real infra
+role: 'Solo: API design, async pipeline, security'
+year: '2025'
+stack: [Python, FastAPI, OpenRouter, Docker]
+problem: >-
+  A quick script that sends a photo to a model can read handwritten math, but it
+  has no auth, no record of what it decided, and no structure to its output,
+  which is not good enough when the results actually count.
+approach: >-
+  I rebuilt that capability as a proper REST API: vision-LLM grading with
+  structured LaTeX to JSON output, HMAC-signed requests, API-key auth, rate
+  limiting, an async job queue and audit logging.
+impact:
+  - Structured LaTeX to JSON output, not free text
+  - HMAC-signed requests, API-key auth and rate limiting
+  - Async job queue with audit logging on every decision
+  - Tested and shipped in Docker
+links:
+  github: https://github.com/SumanthBHegde/AI-Grader-API
+cover: ../../assets/work/auto-grader.png
+accent: '#c2643f'
+order: 3
+---
+
+## The problem
+
+Vision LLMs can read handwritten math, but a one-off script that posts an image
+to a model is not a system. It has no auth, no rate limiting, no record of what
+was decided or why, and no structure to its output. For grading, where the
+result carries weight, that does not cut it.
+
+## What I built
+
+Auto Grader is that same capability rebuilt as a production-shaped REST API.
+
+- Vision-LLM grading of handwritten math through OpenRouter.
+- Structured output: the model's reading is coerced into LaTeX and then JSON, so
+  results are machine usable instead of prose.
+- Security up front: HMAC-signed requests, API-key auth and rate limiting.
+- An async task queue and audit logging that record every request and decision.
+- Tested, and shipped in Docker so it is easy to run.
+
+## How it turned out
+
+It behaves like real infrastructure: authenticated, rate limited, auditable and
+reproducible. This is my most production-shaped project, and the one that best
+shows how I think about building an API rather than just calling a model.

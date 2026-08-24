@@ -1,0 +1,250 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  entries: CollectionEntry<'work'>[];
+}
+const { entries } = Astro.props;
+---
+
+<div class="carousel" aria-roledescription="carousel" aria-label="More projects">
+  <div class="carousel__viewport">
+    <ul class="carousel__track" id="carousel-track">
+      {
+        entries.map((e, i) => (
+          <li
+            class="carousel__item"
+            data-i={i}
+            aria-hidden={i === 0 ? 'false' : 'true'}
+          >
+            <div class="card glass tilt" data-tilt style={`--card-accent:${e.data.accent ?? 'var(--accent)'}`}>
+              <div class="card__inner">
+                {e.data.cover && (
+                  <Image
+                    src={e.data.cover}
+                    alt={`${e.data.title} screenshot`}
+                    widths={[320, 480]}
+                    sizes="(max-width: 48rem) 90vw, 20rem"
+                    formats={['avif', 'webp']}
+                    loading="lazy"
+                    class="card__cover"
+                  />
+                )}
+                <div class="card__top">
+                  <span class="card__num mono">{String(e.data.order).padStart(2, '0')}</span>
+                  <span class="card__year mono">{e.data.year}</span>
+                </div>
+                <h3 class="card__title">{e.data.title}</h3>
+                <p class="card__tagline muted">{e.data.tagline}</p>
+                <ul class="card__stack" aria-label="Tech stack">
+                  {e.data.stack.slice(0, 3).map((s) => <li class="mono">{s}</li>)}
+                </ul>
+                <div class="card__links">
+                  {e.data.links.live ? (
+                    <a class="mono card__link" href={e.data.links.live} rel="noopener">
+                      Live
+                    </a>
+                  ) : e.data.links.docs ? (
+                    <a class="mono card__link" href={e.data.links.docs} rel="noopener">
+                      Docs
+                    </a>
+                  ) : (
+                    <span class="mono card__link card__link--soon">Docs soon</span>
+                  )}
+                  {e.data.links.github && (
+                    <a class="mono card__link" href={e.data.links.github} rel="noopener">
+                      GitHub
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="carousel__controls">
+    <button class="carousel__btn" id="carousel-prev" type="button" aria-label="Previous project">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="carousel__dots" id="carousel-dots" role="tablist" aria-label="Choose project"></div>
+    <button class="carousel__btn" id="carousel-next" type="button" aria-label="Next project">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .carousel {
+    margin-top: var(--space-lg);
+  }
+  .carousel__viewport {
+    position: relative;
+    height: 420px;
+    perspective: 1200px;
+    overflow: hidden;
+  }
+  .carousel__track {
+    position: relative;
+    height: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* Let vertical page scroll pass through; we own horizontal drags. */
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .carousel__track:active {
+    cursor: grabbing;
+  }
+  .carousel__item {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: min(320px, 84vw);
+    height: 380px;
+    margin-left: calc(min(320px, 84vw) / -2);
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease),
+      filter 0.55s var(--ease);
+    will-change: transform, opacity;
+  }
+  .carousel__item .card {
+    height: 100%;
+    padding: var(--space-md);
+    border-radius: var(--radius);
+    border-color: color-mix(in srgb, var(--card-accent) 45%, var(--line));
+    transform: perspective(820px) rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg));
+  }
+  .card__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .card__cover {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    margin-bottom: var(--space-md);
+    background: var(--bg-elev);
+  }
+  .card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-md);
+  }
+  .card__num {
+    font-size: var(--step-1);
+    font-weight: 600;
+    color: var(--card-accent);
+  }
+  .card__year {
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+  .card__title {
+    font-size: var(--step-2);
+    margin-bottom: 0.35rem;
+  }
+  .card__tagline {
+    font-size: var(--step-0);
+  }
+  .card__stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    margin: var(--space-sm) 0 auto;
+  }
+  .card__stack li {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.55rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .card__links {
+    display: flex;
+    gap: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--line);
+    font-size: var(--step--1);
+  }
+  .card__link {
+    color: var(--card-accent);
+  }
+  .card__link--soon {
+    color: var(--faint);
+  }
+
+  .carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+  }
+  .carousel__btn {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+  .carousel__btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .carousel__dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .carousel__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
+    background: var(--line-strong);
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .carousel__dot[aria-selected='true'] {
+    background: var(--accent);
+    transform: scale(1.35);
+  }
+
+  /* Small/medium: one comfortable centered card (JS hides the neighbours).
+     Swipe navigates, so the arrow buttons are hidden; dots stay as an indicator. */
+  @media (max-width: 48rem) {
+    .carousel__viewport {
+      height: 400px;
+    }
+    .carousel__item {
+      width: min(360px, 90vw);
+      height: 380px;
+      margin-left: calc(min(360px, 90vw) / -2);
+    }
+    .carousel__btn {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { initCarousel } from './carousel.ts';
+  initCarousel();
+</script>

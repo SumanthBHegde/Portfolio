@@ -1,0 +1,242 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  // Full case-study pages exist for the flagship (featured) projects only.
+  const items = (await getCollection('work'))
+    .filter((e) => e.data.featured)
+    .sort((a, b) => a.data.order - b.data.order);
+  return items.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: items[(i + 1) % items.length] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+const { Content } = await render(entry);
+const d = entry.data;
+const summary = [
+  { k: 'Problem', v: d.problem },
+  { k: 'Approach', v: d.approach },
+];
+---
+
+<Base title={`${d.title} · ${d.tagline} · Sumanth B Hegde`} description={d.tagline}>
+  <Nav onSubpage />
+
+  <main id="main" class="container" style={d.accent ? `--accent:${d.accent}` : ''}>
+    <a href={`${import.meta.env.BASE_URL}#work`} class="back mono link-underline">← Back to my work</a>
+
+    <header class="cs-head">
+      <p class="eyebrow">{d.role} · {d.year}</p>
+      <h1 class="cs-title">{d.title}</h1>
+      <p class="cs-tagline muted">{d.tagline}</p>
+
+      <ul class="cs-stack" aria-label="Tech stack">
+        {d.stack.map((s) => <li class="mono">{s}</li>)}
+      </ul>
+
+      <div class="cs-links">
+        {
+          d.links.live ? (
+            <a href={d.links.live} class="btn btn--solid" rel="noopener">
+              View live
+            </a>
+          ) : (
+            <span class="btn btn--disabled" aria-disabled="true">Live soon</span>
+          )
+        }
+        {
+          d.links.github && (
+            <a href={d.links.github} class="btn" rel="noopener">
+              View code
+            </a>
+          )
+        }
+      </div>
+    </header>
+
+    {
+      d.cover && (
+        <Image
+          src={d.cover}
+          alt={`${d.title} screenshot`}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 50rem) 92vw, 46rem"
+          formats={['avif', 'webp']}
+          loading="eager"
+          class="cs-hero"
+        />
+      )
+    }
+
+    <section class="cs-summary">
+      {
+        summary.map((s) => (
+          <div class="cs-summary__row">
+            <h2 class="cs-summary__k mono">{s.k}</h2>
+            <p>{s.v}</p>
+          </div>
+        ))
+      }
+      <div class="cs-summary__row">
+        <h2 class="cs-summary__k mono">Impact</h2>
+        <ul class="cs-impact">
+          {d.impact.map((it) => <li>{it}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <a href={`${import.meta.env.BASE_URL}work/${next.id}`} class="cs-next" rel="next">
+      <span class="mono muted">Next project</span>
+      <span class="cs-next__title">{next.data.title} →</span>
+    </a>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .container {
+    padding-block: var(--space-xl) 0;
+  }
+  .back {
+    display: inline-block;
+    font-size: var(--step--1);
+    margin-bottom: var(--space-lg);
+  }
+  .cs-head {
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--line);
+  }
+  .cs-title {
+    font-size: var(--step-4);
+    margin: 0.5rem 0;
+  }
+  .cs-tagline {
+    font-size: var(--step-1);
+    max-width: var(--measure);
+  }
+  .cs-stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0;
+    margin: var(--space-md) 0;
+  }
+  .cs-stack li {
+    font-size: 0.74rem;
+    padding: 0.28rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .cs-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .cs-hero {
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin-top: var(--space-lg);
+    background: var(--bg-elev);
+  }
+
+  .cs-summary {
+    display: grid;
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .cs-summary__row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .cs-summary__k {
+    font-size: var(--step--1);
+    color: var(--accent);
+    padding-top: 0.25rem;
+  }
+  .cs-summary__row p {
+    max-width: var(--measure);
+  }
+  .cs-impact {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  @media (max-width: 40rem) {
+    .cs-summary__row {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
+    }
+  }
+
+  /* ---- Prose (MDX body) ---- */
+  .prose {
+    max-width: var(--measure);
+    padding-block: var(--space-xl);
+    font-size: var(--step-0);
+  }
+  .prose :global(h2) {
+    font-size: var(--step-2);
+    margin: var(--space-lg) 0 var(--space-sm);
+  }
+  .prose :global(p) {
+    margin-bottom: var(--space-sm);
+  }
+  .prose :global(ul) {
+    margin: 0 0 var(--space-sm);
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .prose :global(strong) {
+    color: var(--fg);
+    font-weight: 600;
+  }
+  .prose :global(blockquote) {
+    margin: var(--space-md) 0;
+    padding: var(--space-sm) var(--space-md);
+    border-left: 2px solid var(--accent);
+    background: var(--bg-elev);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .cs-next {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: var(--space-lg) 0;
+    border-top: 1px solid var(--line);
+  }
+  .cs-next__title {
+    font-size: var(--step-2);
+    font-weight: 600;
+    transition: color 0.25s var(--ease);
+  }
+  .cs-next:hover .cs-next__title {
+    color: var(--accent);
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+title: Sentinel
+tagline: Risk detection for short-lived cloud and Kubernetes resources
+role: 'Solo: detection design, pipeline, LLM triage'
+year: '2025'
+stack: [Python, Kubernetes, MITRE ATT&CK, LLMs, Vercel]
+problem: >-
+  Cloud and Kubernetes resources now come and go in seconds, and alerting that
+  judges one event at a time misses the risk that lives in how those events
+  relate to each other.
+approach: >-
+  Detect on context, not events. Sentinel ingests telemetry, correlates related
+  events into incidents, scores them with a fused risk model, and uses an LLM to
+  triage them against MITRE ATT&CK techniques.
+impact:
+  - Live demo running on Vercel
+  - Turns raw telemetry into scored, explainable incidents
+  - Maps incidents to MITRE ATT&CK with LLM-assisted triage
+  - Has tests and its own engineering docs
+links:
+  live: https://sentinel-rho-sooty.vercel.app/app
+  github: https://github.com/SumanthBHegde/Ephemeral-Cloud-And-Kubernetes-Resource-Risk-Detection
+cover: ../../assets/work/sentinel.png
+accent: '#d98a3d'
+order: 1
+---
+
+## The problem
+
+Cloud and Kubernetes workloads are increasingly short-lived. Pods, jobs and
+temporary resources spin up and tear down in seconds. Most detection looks at
+one event at a time and asks whether that single event is bad. For infra that
+vanishes this quickly, no single event is damning. The risk sits in the
+relationship between the events a resource created before it disappeared.
+
+## What I built
+
+Sentinel is built around one idea: detect on context, not events.
+
+- It ingests cloud and Kubernetes telemetry into a normalised stream.
+- It correlates related events into higher level incidents instead of firing
+  per event.
+- It scores each incident with a fused risk model, so one number is backed by
+  several signals.
+- It maps incidents to MITRE ATT&CK techniques and lets an LLM, grounded in that
+  mapping, write readable triage instead of raw alerts.
+
+## How it turned out
+
+There is a working pipeline with a live demo on Vercel. Every score is
+explainable: you can trace it back to the signals and the ATT&CK techniques
+behind it. There are tests and docs, so the reasoning is auditable rather than a
+black box. This is the project I care about most, and the idea the whole site
+borrows its animation from: a signal only means something in context.

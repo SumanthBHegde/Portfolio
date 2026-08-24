@@ -1,0 +1,57 @@
+---
+const year = new Date().getFullYear();
+const links = [
+  { href: 'https://github.com/SumanthBHegde', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/sumanth-hegde-37805a2b9/', label: 'LinkedIn' },
+  { href: 'mailto:sumanthhegde002@gmail.com', label: 'Email' },
+];
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="mono muted footer__sig">signals&nbsp;→&nbsp;context</p>
+    <nav class="footer__links" aria-label="Social">
+      {
+        links.map((l) => (
+          <a href={l.href} class="link-underline" rel="me noopener">
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+    <p class="footer__copy muted">© {year} Sumanth B Hegde</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-block: var(--space-lg);
+    margin-top: var(--space-2xl);
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm) var(--space-md);
+  }
+  .footer__sig {
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+  }
+  .footer__links {
+    display: flex;
+    gap: var(--space-md);
+    font-size: var(--step--1);
+  }
+  .footer__copy {
+    font-size: var(--step--1);
+  }
+  @media (max-width: 34rem) {
+    .footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

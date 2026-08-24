@@ -1,0 +1,22 @@
+# build output
+dist/
+.output/
+.vercel/
+
+# dependencies
+node_modules/
+
+# generated types
+.astro/
+
+# environment
+.env
+.env.production
+
+# logs / os
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# legacy site kept for reference, not part of the build
+_legacy/

@@ -1,0 +1,105 @@
+/* ============================================================
+   Design tokens for the duotone "Signal to Context" system.
+
+   Two colours that are alternates of each other: the ink/primary
+   in one theme is the background in the other. Primary is the only
+   structural colour; everything else is neutral. One restrained
+   teal accent for "context" moments. Colour variety lives only on
+   card borders (per-project hues).
+
+   The pre-paint script in Base.astro sets data-theme before render;
+   the media query is the no-JS fallback.
+   ============================================================ */
+
+:root {
+  /* ---- Dark (default / fallback) ---- */
+  --primary: #f5f5f4;
+  --fg: var(--primary);
+  --bg: #08080a;
+  --bg-elev: #141416;
+  --bg-elev-2: #1c1c1f;
+  --muted: #b0b0b0;
+  --faint: #6b6b6b;
+  --line: rgba(245, 245, 244, 0.12);
+  --line-strong: rgba(245, 245, 244, 0.2);
+  --accent: #f59e0b;
+  --accent-strong: #fbbf24;
+  --glass: rgba(20, 20, 22, 0.6);
+  /* rgb channels used by the WebGL/canvas signal */
+  --signal-primary: 245, 245, 244;
+  --signal-link: 245, 158, 11;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 18px 50px rgba(0, 0, 0, 0.45);
+
+  /* Note: per-project card-border hues come from each entry's `accent`
+     frontmatter (see src/content/work/*.mdx), applied via --card-accent. */
+
+  /* ---- Type ---- */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Fluid type scale, tightened (hero max 3.9rem, not 6rem) */
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.85rem);
+  --step-0: clamp(0.92rem, 0.9rem + 0.12vw, 1rem);
+  --step-1: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  --step-2: clamp(1.25rem, 1.12rem + 0.6vw, 1.55rem);
+  --step-3: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --step-4: clamp(1.9rem, 1.5rem + 1.8vw, 2.9rem);
+  --step-5: clamp(2.3rem, 1.7rem + 2.6vw, 3.9rem);
+
+  /* ---- Space scale ---- */
+  --space-2xs: 0.375rem;
+  --space-xs: 0.625rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5.5rem;
+  --space-3xl: 8rem;
+
+  /* ---- Radii / layout / motion ---- */
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --content-width: 68rem;
+  --measure: 40rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.5s;
+}
+
+/* Explicit light override (set by toggle / stored pref). The inverse. */
+:root[data-theme='light'] {
+  --primary: #0a0a0a;
+  --bg: #ffffff;
+  --bg-elev: #f4f4f1;
+  --bg-elev-2: #ecece7;
+  --muted: #4b5563;
+  --faint: #9a9a9a;
+  --line: rgba(10, 10, 10, 0.12);
+  --line-strong: rgba(10, 10, 10, 0.2);
+  --accent: #b45309;
+  --accent-strong: #92400e;
+  --glass: rgba(255, 255, 255, 0.55);
+  --signal-primary: 10, 10, 10;
+  --signal-link: 180, 83, 9;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 18px 44px rgba(0, 0, 0, 0.1);
+}
+
+/* No-JS fallback: honour system light preference */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --primary: #0a0a0a;
+    --bg: #ffffff;
+    --bg-elev: #f4f4f1;
+    --bg-elev-2: #ecece7;
+    --muted: #4b5563;
+    --faint: #9a9a9a;
+    --line: rgba(10, 10, 10, 0.12);
+    --line-strong: rgba(10, 10, 10, 0.2);
+    --accent: #b45309;
+    --accent-strong: #92400e;
+    --glass: rgba(255, 255, 255, 0.55);
+    --signal-primary: 10, 10, 10;
+    --signal-link: 180, 83, 9;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 18px 44px rgba(0, 0, 0, 0.1);
+  }
+}

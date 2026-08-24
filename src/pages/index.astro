@@ -1,0 +1,260 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import WorkCarousel from '../components/WorkCarousel.astro';
+import profile from '../assets/profile.png';
+
+const all = (await getCollection('work')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const featured = all.filter((e) => e.data.featured);
+const supporting = all.filter((e) => !e.data.featured);
+
+const skills = [
+  { group: 'Languages', items: 'Python · TypeScript · JavaScript · SQL · Java' },
+  { group: 'Backend', items: 'FastAPI · Flask · Node · Express · REST APIs' },
+  { group: 'AI / ML', items: 'LLM apps · agents · RAG · vector DBs · TensorFlow' },
+  { group: 'Data', items: 'PostgreSQL · MySQL · MongoDB · SQLite' },
+  { group: 'Frontend', items: 'React · Next.js · Tailwind · Three.js' },
+  { group: 'Tools', items: 'Docker · GitHub Actions · Vercel · Linux' },
+];
+---
+
+<Base>
+  <div class="layout">
+    <Sidebar />
+
+    <main id="main" class="content">
+      <!-- ===== About ===== -->
+      <section id="about" class="block">
+        <p class="label mono">About</p>
+        <div class="intro">
+          <Image
+            src={profile}
+            alt="Sumanth B Hegde"
+            widths={[120, 240]}
+            sizes="120px"
+            formats={['avif', 'webp']}
+            loading="eager"
+            class="intro__photo"
+          />
+          <div class="intro__facts mono">
+            <span>MCA @ RVCE</span>
+            <span>Bengaluru, from Sirsi</span>
+            <span>GATE DA 2026 qualified</span>
+            <span>IIC Ideathon 2024 winner</span>
+          </div>
+        </div>
+
+        <div class="prose-block">
+          <p>
+            I'm Sumanth. I grew up in Sirsi and I'm in Bengaluru now for my MCA at
+            RVCE. I got into building software because I liked knowing what was
+            happening under the hood, and honestly that's still the thing that
+            keeps me at it.
+          </p>
+          <p>
+            Most of what I do is backend: APIs, data, a bit of agents and RAG. I'll
+            build the frontend when a project needs one, but I'd rather finish and
+            put something small online than leave a big idea sitting as a demo.
+          </p>
+          <p>
+            Right now I'm trying to get properly good at backend engineering and AI
+            instead of hopping between frameworks. Qualifying GATE DA in 2026
+            pushed me to actually learn the fundamentals, which I'm glad about.
+          </p>
+        </div>
+
+        <div class="skills">
+          {
+            skills.map((s) => (
+              <div class="skills__row">
+                <dt class="mono">{s.group}</dt>
+                <dd>{s.items}</dd>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- ===== Work ===== -->
+      <section id="work" class="block">
+        <p class="label mono">Work</p>
+        <p class="lede">
+          A few projects I actually finished and put online. Each one taught me
+          something I still use.
+        </p>
+        <div class="work-grid">
+          {featured.map((entry, i) => <ProjectCard entry={entry} index={i} />)}
+        </div>
+
+        <p class="sub-label mono">A few more</p>
+        <p class="lede muted">
+          Smaller builds, experiments, and course work I still like.
+        </p>
+        <WorkCarousel entries={supporting} />
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section id="contact" class="block">
+        <p class="label mono">Contact</p>
+        <h2 class="contact__title">Say hi.</h2>
+        <p class="lede">
+          I'm looking for backend and AI internships and new grad roles, but I'm up
+          for talking about anything you're building. Email is the fastest way to
+          reach me.
+        </p>
+        <a href="mailto:sumanthhegde002@gmail.com" class="contact__email">
+          sumanthhegde002@gmail.com
+        </a>
+      </section>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(280px, 32%) 1fr;
+    gap: var(--space-2xl);
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: var(--space-xl);
+  }
+  .content {
+    background: var(--bg);
+    padding-block: var(--space-2xl);
+    min-width: 0;
+  }
+
+  .block {
+    padding-bottom: var(--space-3xl);
+    scroll-margin-top: var(--space-lg);
+  }
+  .label {
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+  }
+  .sub-label {
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: var(--space-2xl) 0 var(--space-xs);
+  }
+
+  /* ---- Intro (photo + facts) ---- */
+  .intro {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+  .intro__photo {
+    width: 84px;
+    height: 84px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    filter: grayscale(1);
+    transition: filter 0.4s var(--ease);
+  }
+  .intro__photo:hover {
+    filter: grayscale(0);
+  }
+  .intro__facts {
+    display: grid;
+    gap: 0.25rem;
+    font-size: var(--step--1);
+    color: var(--muted);
+  }
+
+  /* ---- Prose ---- */
+  .prose-block p {
+    max-width: 46ch;
+    margin-bottom: var(--space-sm);
+    color: var(--muted);
+  }
+  .prose-block p:first-child {
+    color: var(--primary);
+  }
+
+  /* ---- Skills ---- */
+  .skills {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--line);
+  }
+  .skills__row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: var(--space-sm);
+    padding: 0.55rem 0;
+    font-size: var(--step--1);
+  }
+  .skills__row dt {
+    color: var(--faint);
+  }
+  .skills__row dd {
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ---- Work ---- */
+  .lede {
+    max-width: 46ch;
+    margin-bottom: var(--space-lg);
+    color: var(--muted);
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--space-md);
+  }
+
+  /* ---- Contact ---- */
+  .contact__title {
+    font-size: var(--step-3);
+    margin-bottom: var(--space-sm);
+  }
+  .contact__email {
+    display: inline-block;
+    font-size: var(--step-2);
+    color: var(--primary);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+    transition: color 0.25s var(--ease);
+  }
+  .contact__email:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 60rem) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding-inline: var(--space-md);
+    }
+    .content {
+      padding-block: var(--space-lg) var(--space-2xl);
+    }
+    .block {
+      padding-bottom: var(--space-2xl);
+    }
+  }
+  @media (max-width: 30rem) {
+    .skills__row {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

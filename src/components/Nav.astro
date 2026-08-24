@@ -1,0 +1,186 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  /** When true, links point back to the home page anchors from a sub-page. */
+  onSubpage?: boolean;
+}
+const { onSubpage = false } = Astro.props;
+const prefix = onSubpage ? import.meta.env.BASE_URL : '';
+const links = [
+  { href: `${prefix}#work`, label: 'Work' },
+  { href: `${prefix}#about`, label: 'About' },
+  { href: `${prefix}#contact`, label: 'Contact' },
+];
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a href={import.meta.env.BASE_URL} class="nav__brand mono" aria-label="Home">
+      <span class="nav__dot" aria-hidden="true"></span>SBH
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      {links.map((l) => <a href={l.href} class="link-underline">{l.label}</a>)}
+    </nav>
+
+    <div class="nav__right">
+      <ThemeToggle />
+      <button
+        id="nav-toggle"
+        class="nav__burger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-mobile"
+      >
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="nav-mobile" class="nav__mobile" aria-label="Mobile" hidden>
+    {links.map((l) => <a href={l.href} class="nav__mobile-link">{l.label}</a>)}
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: saturate(140%) blur(10px);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    height: 60px;
+  }
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6ch;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    font-size: var(--step-0);
+  }
+  .nav__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 3.2s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+    }
+    70% {
+      box-shadow: 0 0 0 7px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav__dot {
+      animation: none;
+    }
+  }
+  .nav__links {
+    display: flex;
+    gap: clamp(1rem, 3vw, 2.2rem);
+    margin-left: auto;
+    margin-right: var(--space-md);
+    font-size: var(--step--1);
+  }
+  .nav__right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* burger hidden on desktop */
+  .nav__burger {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    place-items: center;
+    gap: 4px;
+    flex-direction: column;
+  }
+  .nav__burger span {
+    display: block;
+    width: 16px;
+    height: 1.6px;
+    background: var(--primary);
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+  .nav[data-open='true'] .nav__burger span:nth-child(1) {
+    transform: translateY(2.8px) rotate(45deg);
+  }
+  .nav[data-open='true'] .nav__burger span:nth-child(2) {
+    transform: translateY(-2.8px) rotate(-45deg);
+  }
+
+  .nav__mobile {
+    display: none;
+    flex-direction: column;
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .nav__mobile-link {
+    padding: 0.85rem 0;
+    font-size: var(--step-1);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__mobile-link:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .nav__links {
+      display: none;
+    }
+    .nav__burger {
+      display: inline-grid;
+    }
+    .nav[data-open='true'] .nav__mobile {
+      display: flex;
+    }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('.nav');
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-mobile');
+    if (!header || !btn || !menu) return;
+    const setOpen = (open) => {
+      header.setAttribute('data-open', String(open));
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (open) menu.removeAttribute('hidden');
+      else menu.setAttribute('hidden', '');
+    };
+    btn.addEventListener('click', () =>
+      setOpen(header.getAttribute('data-open') !== 'true')
+    );
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  })();
+</script>
